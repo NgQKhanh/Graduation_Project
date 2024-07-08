@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SearchActivity">
+
+    <!--- Toolbar -->
+    <include
+        layout="@layout/tool_bar"
+        android:id="@+id/toolbar" />
+
+    <!-- Chọn field-->
+    <RelativeLayout
+        android:id="@+id/selectField"
+        android:layout_below="@id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/search_search_bar">
+
+        <TextView
+            android:id="@+id/caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:padding="10dp"
+            android:text="Tìm kiếm theo: "/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/caption">
+            <TextView
+                android:id="@+id/tv_selected"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:padding="10dp"
+                android:backgroundTint="#7EC17503"
+                android:textAlignment="center"
+                android:background="@drawable/search_search_bar">
+            </TextView>
+            <Spinner
+                android:id="@+id/showPickedField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:textSize="18sp"/>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <!-- Search bar -->
+    <android.widget.SearchView
+        android:id="@+id/searchView"
+        android:layout_below="@id/selectField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="10dp"
+        android:queryHint="Nhập từ khoá"
+        android:iconifiedByDefault="false"
+        android:background="@drawable/search_search_bar"
+        android:queryBackground="@android:color/transparent"/>
+
+    <!-- Show data -->
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/searchView"
+        android:id="@+id/listView"
+        android:layout_marginTop="20dp"
+        tools:listitem="@layout/search_list_item"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10dp">
+
+    </ListView>
+</RelativeLayout>
