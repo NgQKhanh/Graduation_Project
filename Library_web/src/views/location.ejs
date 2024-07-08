@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Library navigation</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f0f0f0;
+    }
+    #container {
+        position: relative;
+        width: 400px;
+        height: 400px;
+    }
+    #backgroundCanvas, #gridMap {
+        position: absolute;
+        top: 0;
+        left: 0;
+        border: 1px solid #000;
+    }
+    #backgroundCanvas {
+        z-index: 0;
+    }
+    #gridMap {
+        z-index: 1;
+    }
+</style>
+</head>
+<body>
+<div id="container">
+    <canvas id="backgroundCanvas" width="200" height="360"></canvas>
+    <canvas id="gridMap" width="200" height="360"></canvas>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const backgroundCanvas = document.getElementById('backgroundCanvas');
+    const backgroundCtx = backgroundCanvas.getContext('2d');
+    const gridMap = document.getElementById('gridMap');
+    const gridCtx = gridMap.getContext('2d');
+    const gridSize = 40; // Kích thước ô
+
+    function drawBackgroundImage() {
+        const img = new Image();
+        //img.src = '/image/t1.jpg';
+        img.onload = () => {
+            backgroundCtx.drawImage(img, 0, 0, backgroundCanvas.width, backgroundCanvas.height);
+        }
+    }
+
+    function drawGrid() {
+        for (let x = 0; x <= gridMap.width; x += gridSize) {
+            gridCtx.moveTo(x, 0);
+            gridCtx.lineTo(x, gridMap.height);
+        }
+
+        for (let y = 0; y <= gridMap.height; y += gridSize) {
+            gridCtx.moveTo(0, y);
+            gridCtx.lineTo(gridMap.width, y);
+        }
+
+        gridCtx.strokeStyle = '#000';
+        gridCtx.stroke();
+    }
+
+    function drawRedDot(x, y) {
+        gridCtx.fillStyle = 'red';
+        gridCtx.beginPath();
+        gridCtx.arc(x * gridSize + gridSize / 2, y * gridSize + gridSize / 2, 5, 0, Math.PI * 2);
+        gridCtx.fill();
+    }
+
+    function clearGridCanvas() {
+        gridCtx.clearRect(0, 0, gridMap.width, gridMap.height);
+    }
+
+    drawBackgroundImage();
+    drawGrid();
+
+    const socket = io();
+
+    socket.on('STW/location', (data) => {
+        console.log(data);
+        const location = data;
+        console.log("test2: " + location);
+        let x = location % 5;
+        let y = Math.floor(location / 5);
+        clearGridCanvas();
+        drawGrid();
+        drawRedDot(x, y);
+    });
+</script>
+</body>
+</html>

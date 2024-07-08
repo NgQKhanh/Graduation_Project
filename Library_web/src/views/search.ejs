@@ -1,0 +1,100 @@
+<h2>Tra cứu tài liệu </h2>
+
+<div id="searchContainer">
+    <form id="searchForm" action="/search" method="GET">
+        <input type="text" id="key" placeholder="Nhập từ khóa">
+        <select id="field" name="field">
+            <option value="bookName">Tên sách</option>
+            <option value="author">Tác giả</option>
+            <option value="publisher">Nhà xuất bản</option>
+            <option value="category">Thể loại</option>
+        </select>
+        <button type="submit">Tìm kiếm</button>
+    </form>
+    <div id="searchResults">
+        <ul id="results">
+            <!-- Search results will be displayed here -->
+        </ul>
+    </div>
+    <div id="bookDetails">
+        <!-- Book details will be displayed here -->
+    </div>
+</div>
+
+<script>
+    const searchForm = document.querySelector('#searchForm');
+    const keyWord = document.querySelector('#key');
+    const fieldSelect = document.querySelector('#field');
+    const resultsList = document.querySelector('#results');
+    const bookDetails = document.querySelector('#bookDetails');
+
+    let htmlBookCopy = '';
+
+    searchForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        loadData(keyWord.value, fieldSelect.value);
+    });
+
+    function loadData(key = '', field = 'bookName') {
+        const request = new XMLHttpRequest();
+        request.open('GET', `/search?key=${key}&field=${field}`);
+        request.onload = () => {
+            const results = JSON.parse(request.responseText);
+            let html = '';
+
+            if (results != null) {
+                results.forEach(result => {
+                    html += `<li data-book='${JSON.stringify(result)}'>
+                                ${result.bookName} - ${result.author}
+                            </li>`;
+                });
+            } else {
+                html += `<h3>Không tìm thấy kết quả!</h3>`;
+            }
+            resultsList.innerHTML = html;
+            attachClickHandlers();
+        };
+        request.send();
+    }
+
+    function attachClickHandlers() {
+        const items = resultsList.querySelectorAll('li');
+        items.forEach(item => {
+            item.addEventListener('click', () => {
+                const book = JSON.parse(item.getAttribute('data-book'));
+                htmlBookCopy += 
+                    `<tr>
+                        <td>` + "123456"+ `</td>
+                        <td>` + "có sẵn" + `</td>
+                        <td>` + "A001" + `</td>
+                    </tr>`;
+                displayBookDetails(book);
+            });
+        });
+    }
+
+    function displayBookDetails(book) {
+        bookDetails.innerHTML = `
+            <h3>${book.bookName}</h3>
+            <p><strong>Tác giả:</strong> ${book.author}</p>
+            <p><strong>Nhà xuất bản:</strong> ${book.publisher}</p>
+            <p><strong>Thể loại:</strong> ${book.category}</p>`;
+        bookDetails.innerHTML +=  
+            `<table>
+                <thead>
+                    <tr>
+                        <th>bookID</th>
+                        <th>Trạng thái</th>
+                        <th>Vị trí</th>
+                    </tr>
+                </thead>
+                <tbody>`;
+        bookDetails.innerHTML +=            `<tr>
+                        <td>` + "123456"+ `</td>
+                        <td>` + "có sẵn" + `</td>
+                        <td>` + "A001" + `</td>
+                    </tr>
+                </tbody>
+            </table>`;
+    }   
+</script>

@@ -1,0 +1,38 @@
+{
+  "name": "website",
+  "version": "1.0.0",
+  "description": "intelligent library automation",
+  "main": "server.js",
+  "scripts": {
+    "test": " ",
+    "start": "nodemon ./src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NgQKhanh/learn_nodejs.git"
+  },
+  "keywords": [
+    "library"
+  ],
+  "author": "Nguyen Quoc Khanh",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "canvas": "^2.11.2",
+    "dotenv": "^16.3.1",
+    "ejs": "3.1.8",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "firebase-admin": "^12.2.0",
+    "mysql2": "^3.6.5",
+    "path": "^0.12.7",
+    "sequelize": "^6.37.3",
+    "socket.io": "^4.7.2",
+    "sqlite3": "^5.1.7",
+    "ws": "^8.14.2"
+  },
+  "devDependencies": {
+    "nodemon": "3.0.1",
+    "sequelize-cli": "^6.6.2"
+  }
+}
