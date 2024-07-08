@@ -1,0 +1,22 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>HomePage.qml</file>
+        <file>LoginPage.qml</file>
+        <file>FunctionButton.qml</file>
+        <file>HomePageBigButton.qml</file>
+        <file>AdminPage.qml</file>
+        <file>FunctionBar.qml</file>
+        <file>Header.qml</file>
+        <file>StackViewPage.qml</file>
+        <file>SearchPage.qml</file>
+        <file>SearchDetailPage.qml</file>
+        <file>CustomScrollBar.qml</file>
+        <file>BorrowPage.qml</file>
+        <file>ReturnPage.qml</file>
+        <file>Definition.qml</file>
+        <file>Common.qml</file>
+        <file>NewsPage.qml</file>
+        <file>MyItemsPage.qml</file>
+    </qresource>
+</RCC>
